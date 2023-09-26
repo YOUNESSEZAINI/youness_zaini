@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Colored QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        input[type="text"], input[type="color"], button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #qr-code-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        #download-link {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modern Colored QR Code Generator</h1>
+    <form>
+        <label for="content">QR Code Content:</label>
+        <input type="text" id="content" placeholder="Enter QR code content" required>
+        <br>
+        <label for="color">Color:</label>
+        <input type="color" id="color" value="#007bff">
+        <br>
+        <button type="button" onclick="generateQRCode()">Generate QR Code</button>
+    </form>
+    <div id="qr-code-container">
+        <!-- The generated QR code will appear here -->
+    </div>
+    <a id="download-link" download="qrcode.png" href="#">Download QR Code Image</a>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        function generateQRCode() {
+            const content = document.getElementById('content').value;
+            const color = document.getElementById('color').value;
+
+            const qrCodeContainer = document.getElementById('qr-code-container');
+            qrCodeContainer.innerHTML = '';
+
+            const qrcode = new QRCode(qrCodeContainer, {
+                text: content,
+                width: 200,
+                height: 200,
+                colorDark: color, // Set the QR code color
+            });
+
+            // Show the download link
+            const downloadLink = document.getElementById('download-link');
+            downloadLink.style.display = 'block';
+            downloadLink.href = qrCodeContainer.querySelector('canvas').toDataURL('image/png');
+        }
+    </script>
+</body>
+</html>
